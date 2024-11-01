@@ -1,7 +1,7 @@
 "use client";
 
 import { ClerkLoaded, ClerkProvider, useAuth } from "@clerk/clerk-expo";
-import { ConvexReactClient } from "convex/react";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { Slot } from "expo-router";
 import { ReactNode } from "react";
 import * as SecureStore from "expo-secure-store";
@@ -42,7 +42,9 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
   return (
     <ClerkProvider publishableKey={clerkKey!}>
       <ClerkLoaded>
-        <Slot />
+        <ConvexProvider client={convex}>
+          <Slot />
+        </ConvexProvider>
       </ClerkLoaded>
     </ClerkProvider>
   );
